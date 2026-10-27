@@ -1,12 +1,18 @@
 {
   "name": "sistema-votacions",
   "private": true,
+  "main": "electron/main.js",
   "scripts": {
-    "dev": "npm --prefix backend run start & npm --prefix frontend run dev -- --host 0.0.0.0",
-    "dev:backend": "npm --prefix backend run start",
-    "dev:frontend": "npm --prefix frontend run dev -- --host 0.0.0.0"
+    "dev": "npm --prefix frontend run dev -- --host 0.0.0.0 --port 8080",
+    "dev:backend": "npm --prefix backend run dev",
+    "dev:frontend": "npm --prefix frontend run dev -- --host 0.0.0.0 --port 8080",
+    "electron": "ELECTRON_START_URL=http://localhost:8080 electron .",
+    "electron:dev": "npm run dev:frontend & ELECTRON_START_URL=http://localhost:8080 electron ."
   },
   "dependencies": {
     "chart.js": "^4.6.1"
+  },
+  "devDependencies": {
+    "electron": "^45.0.0"
   }
 }

@@ -77,7 +77,7 @@ onMounted(() => {
   }
 
   // Connectar amb el servidor
-  websocket = new WebSocket('ws://localhost:3000')
+  websocket = new WebSocket('ws://localhost:3002')
 
   websocket.onmessage = (evento) => {
     const dades = JSON.parse(evento.data)
