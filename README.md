@@ -1,38 +1,50 @@
-# sistema-votacions
+# Sistema de votacions
 
-This template should help get you started developing with Vue 3 in Vite.
+Aquest projecte està separat en dues carpetes principals:
 
-## Recommended IDE Setup
+- `backend/`: servidor WebSocket que guarda els vots
+- `frontend/`: aplicació Vue amb la interfície d'usuari
 
-[VS Code](https://code.visualstudio.com/) + [Vue (Official)](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+## Estructura
 
-## Recommended Browser Setup
-
-- Chromium-based browsers (Chrome, Edge, Brave, etc.):
-  - [Vue.js devtools](https://chromewebstore.google.com/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd)
-  - [Turn on Custom Object Formatter in Chrome DevTools](http://bit.ly/object-formatters)
-- Firefox:
-  - [Vue.js devtools](https://addons.mozilla.org/en-US/firefox/addon/vue-js-devtools/)
-  - [Turn on Custom Object Formatter in Firefox DevTools](https://fxdx.dev/firefox-devtools-custom-object-formatters/)
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vite.dev/config/).
-
-## Project Setup
-
-```sh
-npm install
+```text
+sistema-votacions/
+├── backend/
+│   ├── index.js
+│   ├── package.json
+│   ├── package-lock.json
+│   ├── votos.json
+│   └── node_modules/
+├── frontend/
+│   ├── src/
+│   ├── public/
+│   ├── index.html
+│   ├── package.json
+│   ├── vite.config.js
+│   └── node_modules/
+├── README.md
+└── .gitignore
 ```
 
-### Compile and Hot-Reload for Development
+## Executar el projecte
 
-```sh
+### Backend
+
+```bash
+cd backend
+npm install
+npm start
+```
+
+### Frontend
+
+```bash
+cd frontend
+npm install
 npm run dev
 ```
 
-### Compile and Minify for Production
+## Notes
 
-```sh
-npm run build
-```
+- El backend escolta al port 3000.
+- El frontend s'executa amb Vite i es comunica amb el backend via WebSocket.
