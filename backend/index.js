@@ -1,21 +1,33 @@
 
 const WebSocket = require('ws')
 const fs = require('fs')
+const path = require('path')
 
-// port servidor
 const port = process.env.PORT || 3000
+const votosPath = path.join(__dirname, 'votos.json')
 
-// Llegir vots guardats
 let votos = [0, 0, 0, 0]
 
-if (fs.existsSync('votos.json')) {
-  votos = JSON.parse(fs.readFileSync('votos.json', 'utf8'))
+if (fs.existsSync(votosPath)) {
+  try {
+    const datos = fs.readFileSync(votosPath, 'utf8')
+    votos = JSON.parse(datos)
+  } catch (error) {
+    console.warn('No s\'ha pogut llegir el fitxer de vots, es reinicia.')
+    fs.writeFileSync(votosPath, JSON.stringify([0, 0, 0, 0]))
+    votos = [0, 0, 0, 0]
+  }
 } else {
-  fs.writeFileSync('votos.json', JSON.stringify(votos))
+  fs.writeFileSync(votosPath, JSON.stringify(votos))
 }
 
 // Crear servidor WebSocket
 const servidor = new WebSocket.Server({ port: port })
+
+servidor.on('error', (error) => {
+  console.error('No s\'ha pogut iniciar el servidor WebSocket:', error.message)
+  process.exit(1)
+})
 
 console.log('Servidor WebSocket iniciat al port ' + port)
 
@@ -40,7 +52,7 @@ servidor.on('connection', (socket) => {
         votos[opcio]++
 
         // Guardar vots al fitxer
-        fs.writeFileSync('votos.json', JSON.stringify(votos))
+        fs.writeFileSync(votosPath, JSON.stringify(votos))
 
         // Enviar resultats a tots els clients
         servidor.clients.forEach((client) => {
